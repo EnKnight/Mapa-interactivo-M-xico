@@ -48,7 +48,7 @@
         window.onload = function () {
             var R = Raphael(document.getElementById('lienzo'), 900, 600);
             var attr = {
-                fill: "#E8E3EA",
+                fill: "#e5e5e5",
                 //stroke: "#666",
                 stroke: "#fff",
                 "stroke-width": 1,
@@ -135,7 +135,7 @@
             for (var estado in mex) {
                 //En este caso el color #5c3082 es el color más parecido al morado del diseño original :D
                 // y el #DFCFCF es el más parecido al blanco
-                //E995FF
+                //color morado clarito para el hover CD92FF, color opcional para el fondo del mapa E8E3EA
                 mex[estado].color = Raphael.color("#5c3082");
                 (function (edo, estado) {
                     //Le damos un estilo de manita al mouse cuando esté sobre cualquier estado :D
@@ -144,25 +144,38 @@
                     edo[0].onmouseover = function () {
                         if(seleccionado < 1){
                             actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
-                            edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
+                            edo.animate({fill: edo.color, stroke: "#fff"}, 500);
                             edo.toFront();
                             R.safari();
                             //document.getElementById(estado).style.display = "block";
                             actual = estado;                            
-                        } /*else{
-                            actual && mex[actual].animate({fill: "#E8E3EA", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
-                            edo.animate({fill: "#E995FF", stroke: "#ccc"}, 500);
+                        } else{
+                            if(estado != actual){
+                                console.log("Posibilidad de pintar diferente los estados aqui :D");
+                                //actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                                edo.animate({fill: "#CD92FF", stroke: "#fff"}, 500);
+                                edo.toFront();
+                                R.safari();
+                            //document.getElementById(estado).style.display = "block";
+                            //actual = estado;
+                            }
+                            /*actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                            edo.animate({fill: "#CD92FF", stroke: "#fff"}, 500);
                             edo.toFront();
                             R.safari();
                             //document.getElementById(estado).style.display = "block";
-                            actual = estado;
-                        }*/
+                            actual = estado;*/
+                        }
+                        //console.log(estado);
+                        //console.log(actual);
                     };
                     //Cuando el usuario mueva el mouse, que vuelva a colorear el mapa del fondo pseudoblanco en 500ms
                     edo[0].onmouseout = function () {
-                        /*edo.animate({fill: "#E8E3EA", stroke: "#fff"}, 500);
-                        edo.toFront();
-                        R.safari();*/                        
+                        if(estado != actual){
+                            edo.animate({fill: "#e5e5e5", stroke: "#fff"}, 500);
+                            edo.toFront();
+                            R.safari();
+                        }                                                
                     };
                     //que cuando recién cargue la página, que coloree a Aguascalientes
                     if (estado == "ags") {
@@ -179,6 +192,7 @@
                             R.safari();
                             //document.getElementById(estado).style.display = "block";
                             actual = estado;
+                            //edo[0].onmouseover();
 
                         } else{
                             //document.getElementById(estado).style.display = "block";
@@ -188,8 +202,10 @@
                             R.safari();
                             //document.getElementById(estado).style.display = "block";
                             actual = estado;
+                            //edo[0].onmouseover();
                         }
-                        
+                        //console.log(estado);
+                        //console.log(actual);                        
                     };
                 })(mex[estado], estado);
             }

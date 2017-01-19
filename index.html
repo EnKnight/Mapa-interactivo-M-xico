@@ -48,8 +48,9 @@
         window.onload = function () {
             var R = Raphael(document.getElementById('lienzo'), 900, 600);
             var attr = {
-                fill: "#DFCFCF",
-                stroke: "#666",
+                fill: "#E8E3EA",
+                //stroke: "#666",
+                stroke: "#fff",
                 "stroke-width": 1,
                 "stroke-linejoin": "round"
             };
@@ -129,26 +130,39 @@
 
             
             var actual = null;
+            var seleccionado = 0;
+
             for (var estado in mex) {
-                //En este caso el color #680775 es el color más parecido al morado del diseño original :D
-                mex[estado].color = Raphael.color("#680775");
+                //En este caso el color #5c3082 es el color más parecido al morado del diseño original :D
+                // y el #DFCFCF es el más parecido al blanco
+                //E995FF
+                mex[estado].color = Raphael.color("#5c3082");
                 (function (edo, estado) {
                     //Le damos un estilo de manita al mouse cuando esté sobre cualquier estado :D
                     edo[0].style.cursor = "pointer";
+                    //Cuando el mouse está sobre algún estado
                     edo[0].onmouseover = function () {
-                        actual && mex[actual].animate({fill: "#DFCFCF", stroke: "#666"}, 500) && (document.getElementById(actual).style.display = "");
-                        edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
-                        edo.toFront();
-                        R.safari();
-                        //document.getElementById(estado).style.display = "block";
-                        actual = estado;
+                        if(seleccionado < 1){
+                            actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                            edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
+                            edo.toFront();
+                            R.safari();
+                            //document.getElementById(estado).style.display = "block";
+                            actual = estado;                            
+                        } /*else{
+                            actual && mex[actual].animate({fill: "#E8E3EA", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                            edo.animate({fill: "#E995FF", stroke: "#ccc"}, 500);
+                            edo.toFront();
+                            R.safari();
+                            //document.getElementById(estado).style.display = "block";
+                            actual = estado;
+                        }*/
                     };
                     //Cuando el usuario mueva el mouse, que vuelva a colorear el mapa del fondo pseudoblanco en 500ms
                     edo[0].onmouseout = function () {
-                        edo.animate({fill: "#DFCFCF", stroke: "#666"}, 500);
+                        /*edo.animate({fill: "#E8E3EA", stroke: "#fff"}, 500);
                         edo.toFront();
-                        R.safari();
-                        
+                        R.safari();*/                        
                     };
                     //que cuando recién cargue la página, que coloree a Aguascalientes
                     if (estado == "ags") {
@@ -156,7 +170,26 @@
                     }
                     //animación al darle click
                     edo[0].onclick = function(){
-                        document.getElementById(estado).style.display = "block";
+                        seleccionado++;
+                        if(seleccionado > 1){
+                            document.getElementById(estado).style.display = "block";
+                        actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                            edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
+                            edo.toFront();
+                            R.safari();
+                            //document.getElementById(estado).style.display = "block";
+                            actual = estado;
+
+                        } else{
+                            //document.getElementById(estado).style.display = "block";
+                        actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "block");
+                            edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
+                            edo.toFront();
+                            R.safari();
+                            //document.getElementById(estado).style.display = "block";
+                            actual = estado;
+                        }
+                        
                     };
                 })(mex[estado], estado);
             }

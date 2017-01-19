@@ -178,21 +178,24 @@
                         }                                                
                     };
                     //que cuando recién cargue la página, que coloree a Aguascalientes
-                    if (estado == "ags") {
+                    /*if (estado == "ags") {
                         edo[0].onmouseover();
-                    }
+                    }*/
                     //animación al darle click
                     edo[0].onclick = function(){
                         seleccionado++;
                         if(seleccionado > 1){
-                            document.getElementById(estado).style.display = "block";
-                        actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
-                            edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
-                            edo.toFront();
-                            R.safari();
-                            //document.getElementById(estado).style.display = "block";
-                            actual = estado;
-                            //edo[0].onmouseover();
+                            if(estado != actual){
+                                document.getElementById(estado).style.display = "block";
+                                actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                                edo.animate({fill: edo.color, stroke: "#ccc"}, 500);
+                                edo.toFront();
+                                R.safari();
+                                //document.getElementById(estado).style.display = "block";
+                                actual = estado;
+                                //edo[0].onmouseover();
+                            }
+                            
 
                         } else{
                             //document.getElementById(estado).style.display = "block";
@@ -224,7 +227,7 @@
                 </p>
             </div>
             <div id="bcn">
-                <h2>Baja California Norte</h2>
+                <h2>Baja California</h2>
                 <img src="img/casa1.png"><br>
                 <p id = "edo2">
                     Proyectos: 2<br>

@@ -162,7 +162,7 @@
                 }
             }
 
-
+            //Recorre el vector que contiene a los estados, para verificar si tienen proyectos, y de ser así habilitarlos
             for (var estado in mex) {
                 //En este caso el color #5c3082 es el color más parecido al morado del diseño original :D
                 // y el #DFCFCF es el más parecido al blanco, franja naranja ea9847
@@ -175,12 +175,20 @@
                     //Cuando el mouse está sobre algún estado
                     edo[0].onmouseover = function () {
                         if(seleccionado < 1){
-                            actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
-                            edo.animate({fill: edo.color, stroke: "#fff"}, 500);
-                            edo.toFront();
-                            R.safari();
-                            //document.getElementById(estado).style.display = "block";
-                            actual = estado;                            
+                            if(proys[estado]){                                
+                                actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                                edo.animate({fill: edo.color, stroke: "#fff"}, 500);
+                                edo.toFront();
+                                R.safari();
+                                //document.getElementById(estado).style.display = "block";
+                                actual = estado;                            
+                            } else{
+                                edo[0].style.cursor = "auto";
+                                actual && mex[actual].animate({fill: "#e5e5e5", stroke: "#fff"}, 500) && (document.getElementById(actual).style.display = "");
+                                edo.animate({fill: "#C0C0C0", stroke: "#fff"}, 500);
+                                edo.toFront();
+                                R.safari();
+                            }
                         } else{
                             if(estado != actual){
                                 if(proys[estado]){
@@ -193,7 +201,7 @@
                                     //actual = estado;
                                 } else{
                                     edo[0].style.cursor = "auto";
-                                    edo.animate({fill: "#898989", stroke: "#fff"}, 500);
+                                    edo.animate({fill: "#C0C0C0", stroke: "#fff"}, 500);
                                     edo.toFront();
                                     R.safari();
                                 }
